@@ -20,7 +20,7 @@ docker-compose run --rm php composer install
 ```
 
 
-After the environment is built up create database:
+Create database after the environment is built up:
 
 ```bash
 docker-compose run --rm php bin/console doctrine:database:drop --force

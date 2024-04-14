@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./drfox:/var/www/html
+    networks:
+      - drfox
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./drfox/public:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - drfox
+
+  mysql:
+    image: "mysql/mysql-server:8.0"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: "drfox"
+      MYSQL_USER: "drfox"
+      MYSQL_PASSWORD: "drfoxsecret"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    networks:
+      - drfox
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - '-p drfoxsecret'
+      retries: 3
+      timeout: 5s
+
+volumes:
+  mysql:
+
+networks:
+  drfox:
+    driver: bridge

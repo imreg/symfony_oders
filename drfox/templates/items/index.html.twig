@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OrdersController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>{{ order.productName }} Items:</h1>
+        <ul>
+            {% for item in items %}
+                <li>
+                    <u>Item:</u> {{ item.name }} <br>
+                    {% if item.reviewRate is not null %}
+                        <u>Rate:</u> {{ item.reviewRate }} <br> <u>Review:</u> {{ item.reviewText }}
+                    {% else %}
+                        <form action="{{ path('add_review', {'itemId': item.id}) }}" method="post">
+                            <input type="text" name="review_text" placeholder="Enter your review text" required>
+                            <input type="number" name="review_rate" placeholder="Enter your review rate" min="1" max="5"
+                                   required>
+                            <button type="submit">Add Review</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

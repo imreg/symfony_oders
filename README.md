@@ -20,7 +20,7 @@ docker-compose run --rm php composer install
 ```
 
 
-After the environment is built up migrate create database:
+After the environment is built up create database:
 
 ```bash
 docker-compose run --rm php bin/console doctrine:database:drop --force
@@ -43,7 +43,7 @@ docker-compose run --rm php bin/console doctrine:fixtures:load -n
 
 Visit your browser:
 
-Home official view: 
+Open Home official view: 
 
 ```bash
 http://localhost

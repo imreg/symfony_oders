@@ -11,7 +11,7 @@ To install and setup the project please follow the further steps:
 
 ```bash
 
-git clone git@github.com:{user}/symfony_oders.git ./
+git clone git@github.com:{user}/symfony_orders.git ./
 
 docker-compose up
 
